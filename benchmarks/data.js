@@ -1,39 +1,8 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1774215118109,
+  "lastUpdate": 1774218197273,
   "repoUrl": "https://github.com/czlonkowski/n8n-mcp",
   "entries": {
     "n8n-mcp Benchmarks": [
-      {
-        "commit": {
-          "author": {
-            "email": "56956555+czlonkowski@users.noreply.github.com",
-            "name": "Romuald Członkowski",
-            "username": "czlonkowski"
-          },
-          "committer": {
-            "email": "noreply@github.com",
-            "name": "GitHub",
-            "username": "web-flow"
-          },
-          "distinct": true,
-          "id": "fa216e4d1375dfec7e2de424ee0c05a3869db65c",
-          "message": "fix: restore templates database with 2,768 workflow templates (v2.30.2) (#502)\n\n- Restored templates from git history (commit 03a4b07)\n- Updated nodes schema with tool variant columns\n- Database now contains 803 nodes and 2,768 templates\n- Compatible with n8n 2.0.2\n\nConceived by Romuald Członkowski - https://www.aiadvisors.pl/en\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-authored-by: Romuald Członkowski <romualdczlonkowski@MacBook-Pro-Romuald.local>\nCo-authored-by: Claude Opus 4.5 <noreply@anthropic.com>",
-          "timestamp": "2025-12-21T14:11:57+01:00",
-          "tree_id": "acd674c606d60c4aff7260b253fb1d2d0c55d08a",
-          "url": "https://github.com/czlonkowski/n8n-mcp/commit/fa216e4d1375dfec7e2de424ee0c05a3869db65c"
-        },
-        "date": 1766322833175,
-        "tool": "customSmallerIsBetter",
-        "benches": [
-          {
-            "name": "sample - array sorting - small",
-            "value": 0.0136,
-            "range": "0.3096",
-            "unit": "ms",
-            "extra": "73341 ops/sec"
-          }
-        ]
-      },
       {
         "commit": {
           "author": {
@@ -1540,6 +1509,37 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/czlonkowski/n8n-mcp/commit/93816fce303fafa3df7c486d817fcffd8aead583"
         },
         "date": 1774215117808,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "sample - array sorting - small",
+            "value": 0.0136,
+            "range": "0.3096",
+            "unit": "ms",
+            "extra": "73341 ops/sec"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "56956555+czlonkowski@users.noreply.github.com",
+            "name": "Romuald Członkowski",
+            "username": "czlonkowski"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1f0738e637d8db5307ad531317045fd49aa3773a",
+          "message": "fix: auto-inject webhookId on webhook nodes during create/update (#643) (#657)\n\nn8n 2.10+ requires webhookId (UUID) on webhook-type nodes for proper\nwebhook URL registration. Without it, webhooks silently fail with 404.\nThe n8n UI always generates webhookId but programmatic creation via\nn8n-mcp did not.\n\nAdd ensureWebhookIds() helper that injects crypto.randomUUID() on\nwebhook, webhookTrigger, formTrigger, and chatTrigger nodes when\nwebhookId is missing. Called from both cleanWorkflowForCreate() and\ncleanWorkflowForUpdate(). Existing webhookId values are preserved.\n\nConceived by Romuald Członkowski - https://www.aiadvisors.pl/en\n\nCo-authored-by: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+          "timestamp": "2026-03-22T23:20:34+01:00",
+          "tree_id": "c8fdb9aa2c1d8334d1a2a31c098756adbef2fc1d",
+          "url": "https://github.com/czlonkowski/n8n-mcp/commit/1f0738e637d8db5307ad531317045fd49aa3773a"
+        },
+        "date": 1774218196996,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
