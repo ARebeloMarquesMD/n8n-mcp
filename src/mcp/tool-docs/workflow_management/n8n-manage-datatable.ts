@@ -14,7 +14,7 @@ export const n8nManageDatatableDoc: ToolDocumentation = {
       'Use dryRun: true to preview update/upsert/delete before applying',
       'Filter supports: eq, neq, like, ilike, gt, gte, lt, lte conditions',
       'Use returnData: true to get affected rows back from update/upsert/delete',
-      'Requires n8n enterprise or cloud with data tables feature'
+      'Requires n8n instance with data tables feature enabled'
     ]
   },
   full: {
@@ -97,7 +97,7 @@ export const n8nManageDatatableDoc: ToolDocumentation = {
     ],
     pitfalls: [
       'Requires N8N_API_URL and N8N_API_KEY configured',
-      'Feature only available on n8n enterprise or cloud plans',
+      'Requires n8n instance with data tables feature enabled (available on cloud, enterprise, and self-hosted)',
       'deleteTable permanently deletes all rows — cannot be undone',
       'deleteRows requires a filter — cannot delete all rows without one',
       'Column types cannot be changed after table creation via API',
