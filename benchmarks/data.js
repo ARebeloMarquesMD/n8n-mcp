@@ -1,37 +1,8 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1774134918115,
+  "lastUpdate": 1774191730924,
   "repoUrl": "https://github.com/czlonkowski/n8n-mcp",
   "entries": {
     "n8n-mcp Benchmarks": [
-      {
-        "commit": {
-          "author": {
-            "email": "romualdczlonkowski@MacBook-Pro-Romuald.local",
-            "name": "Romuald Członkowski"
-          },
-          "committer": {
-            "email": "romualdczlonkowski@MacBook-Pro-Romuald.local",
-            "name": "Romuald Członkowski"
-          },
-          "distinct": true,
-          "id": "551445bcd5b8bd16fb273a3a129142e50401ed99",
-          "message": "fix: revert to Node 20 and use granular NPM token\n\nNPM classic tokens were revoked on Dec 9, 2025. OIDC trusted publishing\nrequires npm >= 11.5.1 which caused lockfile sync issues with npm ci.\n\nReverted to Node 20 with granular access token approach:\n- Removed OIDC permissions block\n- Removed npm upgrade step\n- Restored NODE_AUTH_TOKEN usage\n- Removed --provenance flag\n\nUser created new granular token with \"Bypass 2FA\" enabled.\n\nConceived by Romuald Członkowski - www.aiadvisors.pl/en\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-          "timestamp": "2025-12-12T16:22:04+01:00",
-          "tree_id": "ca956e8b4150654d91afa6662138a60406f46e99",
-          "url": "https://github.com/czlonkowski/n8n-mcp/commit/551445bcd5b8bd16fb273a3a129142e50401ed99"
-        },
-        "date": 1765553025512,
-        "tool": "customSmallerIsBetter",
-        "benches": [
-          {
-            "name": "sample - array sorting - small",
-            "value": 0.0136,
-            "range": "0.3096",
-            "unit": "ms",
-            "extra": "73341 ops/sec"
-          }
-        ]
-      },
       {
         "commit": {
           "author": {
@@ -1538,6 +1509,37 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/czlonkowski/n8n-mcp/commit/c5665632af4d1d2366bcbf8d079d48c38e4fbecb"
         },
         "date": 1774134917814,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "sample - array sorting - small",
+            "value": 0.0136,
+            "range": "0.3096",
+            "unit": "ms",
+            "extra": "73341 ops/sec"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "56956555+czlonkowski@users.noreply.github.com",
+            "name": "Romuald Członkowski",
+            "username": "czlonkowski"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "6f6668acc42a572b0932b581efd0b430a7859322",
+          "message": "fix: resolve double URL-encoding in datatable filter/sortBy query params (#652)",
+          "timestamp": "2026-03-22T15:59:34+01:00",
+          "tree_id": "5b9e22ef0ab81277f7ee1ce0717cac2fb6a9852b",
+          "url": "https://github.com/czlonkowski/n8n-mcp/commit/6f6668acc42a572b0932b581efd0b430a7859322"
+        },
+        "date": 1774191730454,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
