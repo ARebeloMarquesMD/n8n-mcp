@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+<<<<<<< Updated upstream
 ## [2.47.7] - 2026-04-13
 
 ### Fixed
@@ -113,6 +114,8 @@ Conceived by Romuald Członkowski - https://www.aiadvisors.pl/en
 
 Conceived by Romuald Członkowski - https://www.aiadvisors.pl/en
 
+=======
+>>>>>>> Stashed changes
 ## [2.46.1] - 2026-04-03
 
 ### Fixed
