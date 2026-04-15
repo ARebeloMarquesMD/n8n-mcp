@@ -1,6 +1,10 @@
 {
   "name": "n8n-mcp",
+<<<<<<< Updated upstream
   "version": "2.47.7",
+=======
+  "version": "2.46.1",
+>>>>>>> Stashed changes
   "description": "Integration between n8n workflow automation and Model Context Protocol (MCP)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
