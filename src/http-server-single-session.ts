@@ -96,6 +96,7 @@ export interface SingleSessionHTTPServerOptions {
 export class SingleSessionHTTPServer {
   // Map to store transports by session ID (following SDK pattern)
   // Stores both StreamableHTTP and SSE transports; use instanceof to discriminate
+<<<<<<< Updated upstream
   // Null-prototype objects: sessionId comes from user-controlled HTTP headers
   // (clients can send arbitrary `Mcp-Session-Id` values), so these maps must
   // not inherit from Object.prototype. Otherwise a session id of `__proto__`
@@ -106,6 +107,12 @@ export class SingleSessionHTTPServer {
   private servers: { [sessionId: string]: N8NDocumentationMCPServer } = Object.create(null);
   private sessionMetadata: { [sessionId: string]: { lastAccess: Date; createdAt: Date } } = Object.create(null);
   private sessionContexts: { [sessionId: string]: InstanceContext | undefined } = Object.create(null);
+=======
+  private transports: { [sessionId: string]: StreamableHTTPServerTransport | SSEServerTransport } = {};
+  private servers: { [sessionId: string]: N8NDocumentationMCPServer } = {};
+  private sessionMetadata: { [sessionId: string]: { lastAccess: Date; createdAt: Date } } = {};
+  private sessionContexts: { [sessionId: string]: InstanceContext | undefined } = {};
+>>>>>>> Stashed changes
   private contextSwitchLocks: Map<string, Promise<void>> = new Map();
   private consoleManager = new ConsoleManager();
   private expressServer: any;
@@ -1011,7 +1018,11 @@ export class SingleSessionHTTPServer {
         authentication: {
           type: 'Bearer Token',
           header: 'Authorization: Bearer <token>',
+<<<<<<< Updated upstream
           required_for: ['POST /mcp', 'GET /mcp', 'DELETE /mcp', 'GET /sse', 'POST /messages']
+=======
+          required_for: ['POST /mcp', 'GET /sse', 'POST /messages']
+>>>>>>> Stashed changes
         },
         documentation: 'https://github.com/czlonkowski/n8n-mcp'
       });
@@ -1027,6 +1038,30 @@ export class SingleSessionHTTPServer {
         status: 'ok',
         version: PROJECT_VERSION,
         uptime: Math.floor(process.uptime()),
+<<<<<<< Updated upstream
+=======
+        sessions: {
+          active: sessionMetrics.activeSessions,
+          total: sessionMetrics.totalSessions,
+          expired: sessionMetrics.expiredSessions,
+          max: MAX_SESSIONS,
+          usage: `${sessionMetrics.activeSessions}/${MAX_SESSIONS}`,
+          sessionIds: activeTransports
+        },
+        security: {
+          production: isProduction,
+          defaultToken: isDefaultToken,
+          tokenLength: this.authToken?.length || 0
+        },
+        activeTransports: activeTransports.length, // Legacy field
+        activeServers: activeServers.length, // Legacy field
+        legacySessionActive: false, // Deprecated: SSE now uses shared transports map
+        memory: {
+          used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
+          total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024),
+          unit: 'MB'
+        },
+>>>>>>> Stashed changes
         timestamp: new Date().toISOString()
       });
     });
@@ -1100,12 +1135,15 @@ export class SingleSessionHTTPServer {
             description: 'Main MCP JSON-RPC endpoint (StreamableHTTP)',
             authentication: 'Bearer token required'
           },
+<<<<<<< Updated upstream
           mcpDelete: {
             method: 'DELETE',
             path: '/mcp',
             description: 'Terminate an active MCP session by Mcp-Session-Id header',
             authentication: 'Bearer token required'
           },
+=======
+>>>>>>> Stashed changes
           sse: {
             method: 'GET',
             path: '/sse',
@@ -1137,6 +1175,43 @@ export class SingleSessionHTTPServer {
       });
     });
 
+<<<<<<< Updated upstream
+=======
+    // SECURITY: Rate limiting for authentication endpoints
+    // Prevents brute force attacks and DoS
+    // See: https://github.com/czlonkowski/n8n-mcp/issues/265 (HIGH-02)
+    const authLimiter = rateLimit({
+      windowMs: parseInt(process.env.AUTH_RATE_LIMIT_WINDOW || '900000'), // 15 minutes
+      max: parseInt(process.env.AUTH_RATE_LIMIT_MAX || '20'), // 20 authentication attempts per IP
+      message: {
+        jsonrpc: '2.0',
+        error: {
+          code: -32000,
+          message: 'Too many authentication attempts. Please try again later.'
+        },
+        id: null
+      },
+      standardHeaders: true, // Return rate limit info in `RateLimit-*` headers
+      legacyHeaders: false, // Disable `X-RateLimit-*` headers
+      skipSuccessfulRequests: true, // Only count failed auth attempts (#617)
+      handler: (req, res) => {
+        logger.warn('Rate limit exceeded', {
+          ip: req.ip,
+          userAgent: req.get('user-agent'),
+          event: 'rate_limit'
+        });
+        res.status(429).json({
+          jsonrpc: '2.0',
+          error: {
+            code: -32000,
+            message: 'Too many authentication attempts'
+          },
+          id: null
+        });
+      }
+    });
+
+>>>>>>> Stashed changes
     // Legacy SSE stream endpoint (protocol version 2024-11-05)
     // DEPRECATED: SSE transport is deprecated in MCP SDK v1.x and removed in v2.x.
     // Clients should migrate to StreamableHTTP (POST /mcp). This endpoint will be
@@ -1207,11 +1282,16 @@ export class SingleSessionHTTPServer {
       }
     });
 
+<<<<<<< Updated upstream
     // Session termination endpoint — must require authentication, otherwise any
     // unauthenticated client can terminate arbitrary MCP sessions (GHSA-75hx-xj24-mqrw).
     app.delete('/mcp', authLimiter, async (req: express.Request, res: express.Response): Promise<void> => {
       if (!this.authenticateRequest(req, res)) return;
 
+=======
+    // Session termination endpoint
+    app.delete('/mcp', async (req: express.Request, res: express.Response): Promise<void> => {
+>>>>>>> Stashed changes
       const mcpSessionId = req.headers['mcp-session-id'] as string;
       
       if (!mcpSessionId) {
