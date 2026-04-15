@@ -223,12 +223,15 @@ describe('HTTP Server n8n Mode', () => {
             description: 'Main MCP JSON-RPC endpoint (StreamableHTTP)',
             authentication: 'Bearer token required'
           },
+<<<<<<< Updated upstream
           mcpDelete: {
             method: 'DELETE',
             path: '/mcp',
             description: 'Terminate an active MCP session by Mcp-Session-Id header',
             authentication: 'Bearer token required'
           },
+=======
+>>>>>>> Stashed changes
           sse: {
             method: 'GET',
             path: '/sse',
